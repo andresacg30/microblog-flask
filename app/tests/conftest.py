@@ -15,6 +15,7 @@ def create_app():
         SQLALCHEMY_DATABASE_URI = 'sqlite:///{}'.format(dbpath)
         TESTING = True
         SQLALCHEMY_TRACK_MODIFICATIONS = False
+        WTF_CSRF_ENABLED = False
 
     flask_app = app.config.from_object(Config)
     app.app_context().push()
