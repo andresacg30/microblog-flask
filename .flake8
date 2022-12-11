@@ -12,7 +12,9 @@ exclude =
     # This contains our built documentation
     build,
     # This contains builds of flake8 that we don't want to check
-    dist
+    dist,
+    # Alembic files
+    migrations/*
 max-complexity = 10
 per-file-ignores =
     # imported but unused

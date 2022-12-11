@@ -9,4 +9,4 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-from app import routes  # noqa E402
+from app import routes, models  # noqa E402

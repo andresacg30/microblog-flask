@@ -23,6 +23,7 @@ pytest==7.2.0
 pytest-assume==2.4.3
 pytest-mock==3.10.0
 python-dateutil==2.8.2
+python-dotenv==0.21.0
 six==1.16.0
 SQLAlchemy==1.4.44
 Werkzeug==2.2.2
