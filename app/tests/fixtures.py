@@ -1,6 +1,8 @@
 import pytest
 from faker import Faker
 
+from app.models import User
+
 faker = Faker()
 
 
@@ -15,10 +17,14 @@ def index_uri():
 
 
 @pytest.fixture
-def fake_user_login():
-    user = faker.name()
+def fake_user():
+    user = User(
+        username=faker.name().lower().replace(' ', '_'),
+        email=faker.email(),
+    )
     password = faker.password()
-    return {'username': user, 'password': password}
+    user.set_password(password)
+    return {'user': user, 'password': password}
 
 
 @pytest.fixture
