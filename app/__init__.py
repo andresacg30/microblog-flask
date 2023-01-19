@@ -64,8 +64,4 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.before_request
-def before_request():
-    g.locale = str(get_locale())
-
 from app import routes, models, errors  # noqa E402
