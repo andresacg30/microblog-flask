@@ -1,6 +1,8 @@
-from app import app, db  # noqa F401
-from app.models import  User, Post  # noqa F401
-from app import cli  # noqa F401
+from app import create_app, db, cli
+from app.models import User, Post
+
+app = create_app()
+cli.register(app)
 
 
 @app.shell_context_processor
