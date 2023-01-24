@@ -1,0 +1,31 @@
+version: "3"
+services:
+  microblog:
+    image: microblog:latest
+    ports: 
+      - 8000:5000
+    environment:
+      - MAIL_SERVER=${MAIL_SERVER}
+      - MAIL_PORT=${MAIL_PORT}
+      - MAIL_USE_TLS=${MAIL_USE_TLS}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - MS_TRANSLATOR_KEY=${MS_TRANSLATOR_KEY}
+    depends_on:
+      - db
+    networks:
+     - microblog-network
+  db:
+    image: mysql/mysql-server:latest
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - DATABASE_URL=${DATABASE_URL}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_RANDOM_ROOT_PASSWORD=${MYSQL_RANDOM_ROOT_PASSWORD}
+    networks:
+     - microblog-network
+
+networks:
+  microblog-network:
