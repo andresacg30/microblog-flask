@@ -24,8 +24,13 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_RANDOM_ROOT_PASSWORD=${MYSQL_RANDOM_ROOT_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
     networks:
      - microblog-network
 
 networks:
   microblog-network:
+
+volumes:
+  db_data:
