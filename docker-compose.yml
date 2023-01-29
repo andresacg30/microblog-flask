@@ -3,7 +3,7 @@ services:
   microblog:
     image: microblog:latest
     ports: 
-      - 8000:5000
+      - 5000:8000
     environment:
       - MAIL_SERVER=${MAIL_SERVER}
       - MAIL_PORT=${MAIL_PORT}
