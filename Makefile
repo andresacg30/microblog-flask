@@ -9,3 +9,7 @@ down:
 	docker-compose stop
 
 .PHONY: stop
+
+restart: down up
+
+.PHONY: restart
