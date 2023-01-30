@@ -10,6 +10,6 @@ down:
 
 .PHONY: stop
 
-restart: down up
+restart: down build up
 
 .PHONY: restart

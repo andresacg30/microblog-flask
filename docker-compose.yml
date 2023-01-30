@@ -12,6 +12,7 @@ services:
       - MAIL_PASSWORD=${MAIL_PASSWORD}
       - ADMIN_EMAIL=${ADMIN_EMAIL}
       - MS_TRANSLATOR_KEY=${MS_TRANSLATOR_KEY}
+      - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
     depends_on:
       - db
     networks:
@@ -20,7 +21,7 @@ services:
     image: mysql/mysql-server:latest
     environment:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - DATABASE_URL=${DATABASE_URL}
+      - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_RANDOM_ROOT_PASSWORD=${MYSQL_RANDOM_ROOT_PASSWORD}
