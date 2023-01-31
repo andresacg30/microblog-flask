@@ -15,25 +15,27 @@
                     {{ _('%(count)d following', count=user.followed.count()) }}
                 </p>
                 {% if user != current_user %}
-                    {% if not current_user.is_following(user) %}
                     <p>
+                        {% if not current_user.is_following(user) %}
                         <form action="{{ url_for('main.follow', username=user.username) }}"
-                              method="post">
+                            method="post">
                             {{ form.hidden_tag() }}
                             {{ form.submit(value=_('Follow'),
-                                           class_='btn btn-default btn-sm') }}
+                                        class_='btn btn-default btn-sm') }}
                         </form>
-                    </p>
-                    {% else %}
-                    <p>
+                        {% else %}
                         <form action="{{ url_for('main.unfollow', username=user.username) }}"
-                              method="post">
+                            method="post">
                             {{ form.hidden_tag() }}
                             {{ form.submit(value=_('Unfollow'),
-                                           class_='btn btn-default btm-sm') }}
+                                        class_='btn btn-default btn-sm') }}
                         </form>
+                        {% endif %}
+                        <a href="{{ url_for('main.send_message', recipient=user.username) }}"
+                        class='btn btn-default btn-sm'>
+                            {{ _('Send message') }}
+                        </a>
                     </p>
-                    {% endif %}
                 {% endif %}
             </small>
         </td>
