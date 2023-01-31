@@ -15,7 +15,7 @@
                     {{ _('%(count)d following', count=user.followed.count()) }}
                 </p>
                 {% if user != current_user %}
-                    <div>
+                    <p>
                         {% if not current_user.is_following(user) %}
                         <form action="{{ url_for('main.follow', username=user.username) }}"
                             method="post">
@@ -35,7 +35,7 @@
                         class='btn btn-default btn-sm'>
                             {{ _('Send message') }}
                         </a>
-                    </div>
+                    </p>
                 {% endif %}
             </small>
         </td>
