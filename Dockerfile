@@ -1,4 +1,5 @@
-FROM python:slim
+# Microblog
+FROM python:slim as microblog
 
 RUN useradd microblog
 
