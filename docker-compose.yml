@@ -18,6 +18,9 @@ services:
     links:
       - db:dbserver
       - redis:redis-server
+    volumes:
+      - app_sourcecode:/microblog-flask
+    restart: always
     networks:
      - microblog-network
 
@@ -37,6 +40,9 @@ services:
     links:
       - db:dbserver
       - redis:redis-server
+    volumes:
+      - app_sourcecode:/microblog-flask
+    restart: always
     entrypoint: venv/bin/rq worker -u $REDIS_URL microblog-tasks
     networks:
      - microblog-network
@@ -69,3 +75,8 @@ networks:
 
 volumes:
   db_data:
+  app_sourcecode:
+    driver_opts:
+      type: none
+      device: $PWD
+      o: bind
