@@ -15,6 +15,7 @@ def test_app():
         SQLALCHEMY_TRACK_MODIFICATIONS = False
         WTF_CSRF_ENABLED = False
         LANGUAGES = ['en', 'es']
+        REDIS_URL = 'redis://'
 
     flask_app = create_app(Config)
     flask_app.app_context().push()

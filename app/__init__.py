@@ -1,5 +1,7 @@
 import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler
+from redis import Redis
+import rq
 import os
 from flask import Flask, request, current_app
 from flask_sqlalchemy import SQLAlchemy
@@ -33,6 +35,8 @@ def create_app(config_class=Config):
     bootstrap.init_app(app)
     moment.init_app(app)
     babel.init_app(app)
+    app.redis = Redis.from_url(app.config['REDIS_URL'])
+    app.task_queue = rq.Queue('microblog-tasks', connection=app.redis)
 
     from app.errors import bp as errors_bp
     app.register_blueprint(errors_bp)

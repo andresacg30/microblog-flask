@@ -2,7 +2,8 @@ version: "3"
 services:
   microblog:
     image: microblog:latest
-    ports: 
+    container_name: microblog
+    ports:
       - 8000:5000
     environment:
       - MAIL_SERVER=${MAIL_SERVER}
@@ -13,10 +14,33 @@ services:
       - ADMIN_EMAIL=${ADMIN_EMAIL}
       - MS_TRANSLATOR_KEY=${MS_TRANSLATOR_KEY}
       - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
-    depends_on:
-      - db
+      - REDIS_URL=${REDIS_URL}
+    links:
+      - db:dbserver
+      - redis:redis-server
     networks:
      - microblog-network
+
+  rq-worker:
+    image: microblog:latest
+    container_name: rq-worker
+    environment:
+      - MAIL_SERVER=${MAIL_SERVER}
+      - MAIL_PORT=${MAIL_PORT}
+      - MAIL_USE_TLS=${MAIL_USE_TLS}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - MS_TRANSLATOR_KEY=${MS_TRANSLATOR_KEY}
+      - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI}
+      - REDIS_URL=${REDIS_URL}
+    links:
+      - db:dbserver
+      - redis:redis-server
+    entrypoint: venv/bin/rq worker -u $REDIS_URL microblog-tasks
+    networks:
+     - microblog-network
+
   db:
     image: mysql/mysql-server:latest
     environment:
@@ -27,6 +51,16 @@ services:
       - MYSQL_RANDOM_ROOT_PASSWORD=${MYSQL_RANDOM_ROOT_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+     - microblog-network
+  
+  redis:
+    image: redis:3-alpine
+    container_name: redis
+    ports: 
+      - 6379:6379
+    environment:
+      - REDIS_URL=${REDIS_URL}
     networks:
      - microblog-network
 
