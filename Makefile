@@ -1,7 +1,7 @@
 build:
 	docker build -t microblog:latest .
 up:
-	docker-compose --env-file .env up -d
+	docker-compose --env-file .env up -d --build
 
 .PHONY: build up
 
